@@ -1,0 +1,26 @@
+name: Tests
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  windows-workflow:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test complete Windows launcher with native fixtures
+        shell: powershell
+        run: .\tests\test_windows.ps1
+  c-tests:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install development libraries
+        run: >-
+          sudo apt-get update && sudo apt-get install -y build-essential pkg-config
+          libimobiledevice-dev libirecovery-dev libusb-1.0-0-dev libplist-dev
+          libssl-dev libcurl4-openssl-dev libssh2-1-dev
+      - name: Run unit and mock integration suites
+        run: make test test-mocks

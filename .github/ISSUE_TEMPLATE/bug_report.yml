@@ -1,0 +1,23 @@
+name: Workflow failure
+description: Report a reproducible device or setup failure.
+body:
+  - type: input
+    id: environment
+    attributes:
+      label: Windows version, iPhone model, and iOS version
+      description: Omit serials, IMEIs, and UDIDs.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Command and steps to reproduce
+    validations:
+      required: true
+  - type: textarea
+    id: error
+    attributes:
+      label: Failure stage and redacted error
+      description: Do not paste credentials, activation records, or private keys.
+    validations:
+      required: true
